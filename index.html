@@ -243,9 +243,13 @@ function copyTotal(){
 
 let amount = document.getElementById("total").innerText;
 
+// Remove $ sign and decimals
+amount = amount.replace("$","").replace(".00","");
+
 navigator.clipboard.writeText(amount);
 
-alert("Total copied: " + amount);
+alert("Amount copied: " + amount);
+
 
 }
 
