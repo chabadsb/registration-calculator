@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Registration Payment Calculator</title>
+
+<style>
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fa;
+    padding: 20px;
+    margin: 0;
+}
+
+.calculator {
+    max-width: 500px;
+    margin: 20px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.15);
+}
+
+h1 {
+    text-align: center;
+    font-size: 26px;
+    color: #1b4f8a;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 20px;
+}
+
+input[type="number"] {
+    width: 100%;
+    max-width: 250px;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+.checkbox {
+    width: auto !important;
+    margin-right: 8px;
+}
+
+.summary {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    margin: 12px 0;
+}
+
+.total-box {
+    margin-top: 25px;
+    padding: 20px;
+    background: #eef5ff;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.total {
+    font-size: 32px;
+    font-weight: bold;
+    color: #1b4f8a;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: #1b4f8a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: .9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="calculator">
+
+<h1>Registration Payment Calculator</h1>
+
+<label>
+Number of Children Registering
+</label>
+
+<input 
+type="number" 
+id="children" 
+min="1" 
+value="1"
+oninput="calculate()">
+
+
+<label>
+<input 
+class="checkbox"
+type="checkbox"
+id="earlybird"
+onchange="calculate()">
+
+Early Bird Discount (-$70 per family)
+
+</label>
+
+
+<label>
+Number of Families Referred
+</label>
+
+<input 
+type="number"
+id="referrals"
+min="0"
+value="0"
+oninput="calculate()">
+
+
+
+<label>
+Additional Discount ($)
+</label>
+
+<input
+type="number"
+id="additional"
+min="0"
+value="0"
+oninput="calculate()">
+
+
+
+<div class="summary">
+
+<div class="row">
+<span>Tuition</span>
+<span>$<span id="tuition">950.00</span></span>
+</div>
+
+
+<div class="row">
+<span>Deposit</span>
+<span>$<span id="deposit">100.00</span></span>
+</div>
+
+
+<div class="row">
+<span>Discounts</span>
+<span>-$<span id="discounts">0.00</span></span>
+</div>
+
+
+</div>
+
+
+<div class="total-box">
+
+<div>Total Amount Due</div>
+
+<div class="total" id="total">
+$1050.00
+</div>
+
+
+<button onclick="copyTotal()">
+Copy Total
+</button>
+
+
+</div>
+
+
+</div>
+
+
+<script>
+
+function calculate(){
+
+let children = Number(document.getElementById("children").value) || 0;
+
+let referrals = Number(document.getElementById("referrals").value) || 0;
+
+let additional = Number(document.getElementById("additional").value) || 0;
+
+let earlybird = document.getElementById("earlybird").checked;
+
+
+let tuition = children * 950;
+
+let deposit = children * 100;
+
+
+let discounts = referrals * 100 + additional;
+
+
+if(earlybird){
+    discounts += 70;
+}
+
+
+let total = tuition + deposit - discounts;
+
+
+if(total < 0){
+    total = 0;
+}
+
+
+document.getElementById("tuition").innerHTML = tuition.toFixed(2);
+
+document.getElementById("deposit").innerHTML = deposit.toFixed(2);
+
+document.getElementById("discounts").innerHTML = discounts.toFixed(2);
+
+document.getElementById("total").innerHTML = "$" + total.toFixed(2);
+
+}
+
+
+function copyTotal(){
+
+let amount = document.getElementById("total").innerText;
+
+navigator.clipboard.writeText(amount);
+
+alert("Total copied: " + amount);
+
+}
+
+
+calculate();
+
+</script>
+
+</body>
+</html>
