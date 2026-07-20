@@ -16,80 +16,198 @@ body {
 }
 
 .calculator {
-    max-width: 500px;
+    max-width: 550px;
     margin: 20px auto;
     background: white;
     padding: 30px;
-    border-radius: 12px;
+    border-radius: 14px;
     box-shadow: 0 3px 12px rgba(0,0,0,.15);
 }
 
 h1 {
     text-align: center;
-    font-size: 26px;
     color: #1b4f8a;
+    font-size: 28px;
+}
+
+.subtitle {
+    text-align:center;
+    color:#555;
+    font-size:15px;
+    line-height:1.5;
 }
 
 label {
-    font-weight: bold;
-    display: block;
-    margin-top: 20px;
+    font-weight:bold;
+    display:block;
+    margin-top:22px;
+    color:#333;
 }
 
 input[type="number"] {
-    width: 100%;
-    max-width: 250px;
-    padding: 10px;
-    font-size: 16px;
-    margin-top: 8px;
+    width:100%;
+    max-width:250px;
+    padding:10px;
+    margin-top:8px;
+    font-size:16px;
+    border:1px solid #ccc;
+    border-radius:6px;
 }
 
 .checkbox {
-    width: auto !important;
-    margin-right: 8px;
+    width:auto !important;
+    margin-right:8px;
 }
+
+.help-text {
+    font-size:13px;
+    color:#666;
+    line-height:1.5;
+    margin-top:5px;
+}
+
+
+.payment-title {
+    margin-top:30px;
+    color:#1b4f8a;
+    font-size:20px;
+}
+
+
+.payment-option {
+
+    border:2px solid #ddd;
+    border-radius:10px;
+    padding:18px;
+    margin-top:12px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+
+.payment-option:hover {
+    border-color:#1b4f8a;
+}
+
+
+.payment-option.selected {
+
+    border-color:#1b4f8a;
+    background:#eef5ff;
+
+}
+
+
+.payment-option input {
+
+    margin-right:10px;
+
+}
+
+
+.option-title {
+
+    font-weight:bold;
+    font-size:17px;
+
+}
+
+
+.option-description {
+
+    font-size:14px;
+    color:#555;
+    margin-top:6px;
+
+}
+
+
+.warning {
+
+    display:none;
+    margin-top:15px;
+    color:#a00;
+    font-weight:bold;
+
+}
+
 
 .summary {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #ddd;
+
+    margin-top:30px;
+    padding-top:20px;
+    border-top:1px solid #ddd;
+
 }
+
 
 .row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 18px;
-    margin: 12px 0;
+
+    display:flex;
+    justify-content:space-between;
+    font-size:17px;
+    margin:12px 0;
+
 }
 
-.total-box {
-    margin-top: 25px;
-    padding: 20px;
-    background: #eef5ff;
-    text-align: center;
-    border-radius: 10px;
+
+.payment-box {
+
+    margin-top:25px;
+    background:#eef5ff;
+    border-radius:12px;
+    padding:22px;
+    text-align:center;
+
 }
 
-.total {
-    font-size: 32px;
-    font-weight: bold;
-    color: #1b4f8a;
+
+.payment-box h3 {
+
+    margin-top:0;
+    color:#1b4f8a;
+
 }
 
-button {
-    margin-top: 20px;
-    padding: 12px 25px;
-    background: #1b4f8a;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
+
+.amount {
+
+    font-size:38px;
+    font-weight:bold;
+    color:#1b4f8a;
+    margin:15px 0;
+
 }
 
-button:hover {
-    opacity: .9;
+
+.copy-button {
+
+    background:#1b4f8a;
+    color:white;
+    border:none;
+    padding:13px 25px;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+
 }
+
+
+.copy-button:hover {
+
+    opacity:.9;
+
+}
+
+
+.note {
+
+    margin-top:15px;
+    font-size:13px;
+    color:#555;
+
+}
+
 
 </style>
 
@@ -97,20 +215,28 @@ button:hover {
 
 <body>
 
+
 <div class="calculator">
 
+
 <h1>Registration Payment Calculator</h1>
+
+<p class="subtitle">
+Calculate your family's tuition and choose your preferred payment option.
+</p>
+
 
 <label>
 Number of Children Registering
 </label>
 
 <input 
-type="number" 
-id="children" 
-min="1" 
+type="number"
+id="children"
+min="1"
 value="1"
 oninput="calculate()">
+
 
 
 <label>
@@ -125,16 +251,22 @@ Early Bird Discount (-$70 per family)
 </label>
 
 
+
 <label>
 Number of Families Referred
 </label>
 
-<input 
+<input
 type="number"
 id="referrals"
 min="0"
 value="0"
 oninput="calculate()">
+
+
+<p class="help-text">
+Only include families who have completed their registration for our Hebrew School. You will receive a $100 discount for each eligible family.
+</p>
 
 
 
@@ -150,18 +282,59 @@ value="0"
 oninput="calculate()">
 
 
+<p class="help-text">
+If your family has been approved for an additional tuition adjustment, enter that amount here.
+</p>
 
-<div class="summary">
 
-<div class="row">
-<span>Tuition</span>
-<span>$<span id="tuition">900.00</span></span>
+
+<h2 class="payment-title">
+How Would You Like To Pay? <span style="color:red;">*</span>
+</h2>
+
+
+<div class="payment-option" onclick="choosePayment('full')" id="fullBox">
+
+<input type="radio" name="payment" id="full">
+
+<span class="option-title">
+Pay In Full
+</span>
+
+<div class="option-description">
+Pay the full tuition amount today.
+</div>
+
 </div>
 
 
+<div class="payment-option" onclick="choosePayment('installment')" id="installmentBox">
+
+<input type="radio" name="payment" id="installment">
+
+<span class="option-title">
+10 Monthly Installments
+</span>
+
+<div class="option-description">
+Pay your tuition in 10 equal monthly payments.
+Your first payment will be charged today.
+</div>
+
+</div>
+
+
+<div class="warning" id="warning">
+Please select a payment option before continuing.
+</div><div class="summary">
+
+<h2 style="color:#1b4f8a;font-size:20px;">
+Payment Summary
+</h2>
+
 <div class="row">
-<span>Deposit</span>
-<span>$<span id="deposit">150.00</span></span>
+<span>Total Tuition</span>
+<span>$<span id="totalTuition">1050.00</span></span>
 </div>
 
 
@@ -174,18 +347,26 @@ oninput="calculate()">
 </div>
 
 
-<div class="total-box">
+<div class="payment-box">
 
-<div>Total Amount Due</div>
+<h3>
+👇 Enter This Amount in the Payment Form Below 👇
+</h3>
 
-<div class="total" id="total">
-$1050.00
+
+<div class="amount" id="paymentAmount">
+Select Payment Option
 </div>
 
 
-<button onclick="copyTotal()">
-Copy Total
+<button class="copy-button" onclick="copyAmount()">
+📋 Copy Payment Amount
 </button>
+
+
+<p class="note">
+The copied amount contains numbers only (no $ sign and no decimals).
+</p>
 
 
 </div>
@@ -196,67 +377,251 @@ Copy Total
 
 <script>
 
+
+let selectedPayment = "";
+
+
+function choosePayment(type){
+
+selectedPayment = type;
+
+
+document.getElementById("full").checked = false;
+document.getElementById("installment").checked = false;
+
+
+if(type=="full"){
+
+document.getElementById("full").checked = true;
+
+document.getElementById("fullBox").classList.add("selected");
+document.getElementById("installmentBox").classList.remove("selected");
+
+}
+
+
+if(type=="installment"){
+
+document.getElementById("installment").checked = true;
+
+document.getElementById("installmentBox").classList.add("selected");
+document.getElementById("fullBox").classList.remove("selected");
+
+}
+
+
+document.getElementById("warning").style.display="none";
+
+
+calculate();
+
+}
+
+
+
 function calculate(){
 
-let children = Number(document.getElementById("children").value) || 0;
 
-let referrals = Number(document.getElementById("referrals").value) || 0;
-
-let additional = Number(document.getElementById("additional").value) || 0;
-
-let earlybird = document.getElementById("earlybird").checked;
+let children =
+Number(document.getElementById("children").value) || 0;
 
 
+let referrals =
+Number(document.getElementById("referrals").value) || 0;
+
+
+let additional =
+Number(document.getElementById("additional").value) || 0;
+
+
+let earlybird =
+document.getElementById("earlybird").checked;
+
+
+
+// Pricing
 let tuition = children * 900;
 
 let deposit = children * 150;
+
 
 
 let discounts = referrals * 100 + additional;
 
 
 if(earlybird){
-    discounts += 70;
+
+discounts += 70;
+
 }
+
 
 
 let total = tuition + deposit - discounts;
 
 
 if(total < 0){
-    total = 0;
-}
 
-
-document.getElementById("tuition").innerHTML = tuition.toFixed(2);
-
-document.getElementById("deposit").innerHTML = deposit.toFixed(2);
-
-document.getElementById("discounts").innerHTML = discounts.toFixed(2);
-
-document.getElementById("total").innerHTML = "$" + total.toFixed(2);
+total = 0;
 
 }
 
 
-function copyTotal(){
 
-let amount = document.getElementById("total").innerText;
+document.getElementById("totalTuition").innerHTML =
+total.toFixed(2);
 
-// Remove $ sign and decimals
-amount = amount.replace("$","").replace(".00","");
 
-navigator.clipboard.writeText(amount);
+document.getElementById("discounts").innerHTML =
+discounts.toFixed(2);
 
-alert("Amount copied: " + amount);
+
+
+let paymentDisplay =
+document.getElementById("paymentAmount");
+
+
+
+if(selectedPayment=="full"){
+
+
+paymentDisplay.innerHTML =
+"$" + total.toFixed(2);
 
 
 }
+
+
+else if(selectedPayment=="installment"){
+
+
+let monthly = total / 10;
+
+
+paymentDisplay.innerHTML =
+"$" + monthly.toFixed(2);
+
+
+}
+
+
+else {
+
+
+paymentDisplay.innerHTML =
+"Select Payment Option";
+
+
+}
+
+
+
+}
+
+
+
+
+function copyAmount(){
+
+
+if(selectedPayment==""){
+
+
+document.getElementById("warning").style.display="block";
+
+return;
+
+
+}
+
+
+
+let children =
+Number(document.getElementById("children").value) || 0;
+
+
+let referrals =
+Number(document.getElementById("referrals").value) || 0;
+
+
+let additional =
+Number(document.getElementById("additional").value) || 0;
+
+
+let earlybird =
+document.getElementById("earlybird").checked;
+
+
+
+let total =
+(children * 1050) - (referrals * 100) - additional;
+
+
+
+if(earlybird){
+
+total -= 70;
+
+}
+
+
+
+if(total < 0){
+
+total = 0;
+
+}
+
+
+
+let amount;
+
+
+if(selectedPayment=="installment"){
+
+amount = Math.round(total / 10);
+
+}
+
+else{
+
+amount = Math.round(total);
+
+}
+
+
+
+// COPY ONLY NUMBERS
+navigator.clipboard.writeText(amount.toString());
+
+
+
+let button =
+document.querySelector(".copy-button");
+
+
+button.innerHTML =
+"✅ Payment Amount Copied!";
+
+
+setTimeout(function(){
+
+button.innerHTML =
+"📋 Copy Payment Amount";
+
+},2500);
+
+
+
+}
+
 
 
 calculate();
 
+
 </script>
+
 
 </body>
 </html>
